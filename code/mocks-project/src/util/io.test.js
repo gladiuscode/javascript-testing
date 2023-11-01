@@ -49,4 +49,7 @@ it('should call the writeData function', () => {
 
     // We the path mock, we can actually implement an assert that takes into account the provided inputs
     expect(fs.writeFile).toBeCalledWith(testFileName, testData)
+
+    // With our global fs mock, this will work since we now return a custom Promise
+    expect(writeData(testData, testFileName)).resolves.toBeUndefined();
 });

@@ -1,4 +1,4 @@
-import { it, expect } from 'vitest';
+import { it, expect, beforeEach, beforeAll, afterEach, afterAll } from 'vitest';
 
 import { User } from './hooks.js';
 
@@ -14,7 +14,34 @@ import { User } from './hooks.js';
  */
 
 const testEmail = 'test@test.com';
-const user = new User(testEmail);
+let user = new User(testEmail);
+
+/*
+  We can leverage hooks to fix the problem mention above.
+  Hooks are a special kind of function that the test
+  runner executes at a given moment during our test run.
+ */
+beforeAll(() => {
+  console.log('This is executed one time before all test');
+})
+beforeEach(() => {
+  console.log('This is executed one time before each test');
+})
+afterAll(() => {
+  console.log('This is executed one time after all test');
+})
+afterEach(() => {
+  console.log('This is executed one time after each test');
+
+  // With this instruction we are resetting after each test
+  // our user variable, so it will not be dirty anymore
+  user = new User(testEmail);
+})
+
+/*
+  Hooks can be used outside a test suite (describe) or inside of
+  it, therefore they can be global or local to a tests slice
+ */
 
 it('should update the email', () => {
   const newTestEmail = 'test2@test.com';

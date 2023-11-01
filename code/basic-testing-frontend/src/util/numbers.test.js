@@ -33,7 +33,15 @@ describe('cleanNumbers()', () => {
 
         const result = cleanNumbers(numberValues);
 
-        expect(result[0]).toBeTypeOf('number');
+        // expect(result[0]).toBeTypeOf('number');
+
+        // This will fail because an object is not equal to an object of the same signature, they occupy different
+        // places in memory
+        // expect(result).toBe([1, 2]);
+
+        // This works because it doesn't check for strict equality, it does a deep comparison so that all properties
+        // are equal
+        expect(result).toEqual([1, 2]);
     })
 
     it('should throw an error if an array with at least one empty string is provided', () => {
